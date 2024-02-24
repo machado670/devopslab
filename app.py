@@ -4,4 +4,4 @@ app = Flask(__name__)
 
 @app.route("/")
 def pagina_inicial():
-    return "App Gaby v1.0"
+    return "App Gaby v2.0"
