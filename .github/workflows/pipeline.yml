@@ -55,7 +55,7 @@ jobs:
 
       - name: Notificação no Slack - Started
         id: slackk
-        uses: slackapi/slack-github-action@v1.25.0.  # https://github.com/marketplace/actions/slack-send
+        uses: slackapi/slack-github-action@v1.25.0  # https://github.com/marketplace/actions/slack-send
         with:
           channel-id: "C06LJ9Y58TC"
           payload: |
