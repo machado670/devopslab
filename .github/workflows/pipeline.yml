@@ -53,33 +53,6 @@ jobs:
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
-      - name: Notificação no Slack - Started
-        id: slackk
-        uses: slackapi/slack-github-action@v1.25.0  # https://github.com/marketplace/actions/slack-send
-        with:
-          channel-id: "C06LJ9Y58TC"
-          payload: |
-            {
-              "text": "Deployment started (In Progress)",
-              "attachments": [
-                {
-                  "pretext": "Deployment started",
-                  "color": "dbab09",
-                  "fields": [
-                    {
-                      "title": "Status",
-                      "short": true,
-                      "value": "In Progress"
-                    }
-                  ]
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_TOKEN}}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATIONS_TOKEN }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-
       - name: Cloud Run Deploy
         id: deploy
         uses: 'google-github-actions/deploy-cloudrun@v2'  # https://github.com/marketplace/actions/deploy-to-cloud-run
@@ -92,7 +65,7 @@ jobs:
       - name: Validando a API 
         run: 'curl "${{ steps.deploy.outputs.url }}"'
 
-      - name: Notificação Slack - Finished
+      - name: Notificação Slack
         id: slack
         uses: slackapi/slack-github-action@v1.25.0
         with:
