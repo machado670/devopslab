@@ -40,6 +40,15 @@ jobs:
         run: |      
           docker push ${{ vars.GOOGLE_ARTIFACT }}/${{ vars.GOOGLE_PROJECT_ID }}/${{ vars.GOOGLE_REPONAME }}/${{ vars.GOOGLE_MYAPP }}:latest
 
+      - name: DAST - ZAP Scan
+        uses: zaproxy/action-full-scan@v0.9.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: ${{ vars.GOOGLE_ARTIFACT }}/${{ vars.GOOGLE_PROJECT_ID }}/${{ vars.GOOGLE_REPONAME }}/${{ vars.GOOGLE_MYAPP }}:latest
+          target: 'https://gabydias-nu2ly27wnq-ue.a.run.app'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+
   Deploy:
     needs: Build
     runs-on: ubuntu-latest
